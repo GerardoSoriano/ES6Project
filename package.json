@@ -1,0 +1,24 @@
+{
+  "name": "your-app-name",
+  "version": "1.0.0",
+  "description": "your-app-description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GerardoSoriano/ES6Project.git"
+  },
+  "keywords": [
+    "your",
+    "app",
+    "keywords"
+  ],
+  "author": "gerardosoriano97@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GerardoSoriano/ES6Project/issues"
+  },
+  "homepage": "https://github.com/GerardoSoriano/ES6Project#readme"
+}
