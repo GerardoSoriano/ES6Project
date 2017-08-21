@@ -1,15 +1,28 @@
 var gulp        = require('gulp');
+var renaame     = require('gulp-rename');
 var browserify  = require('browserify');
 var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
+var es          = require('event-stream');
 
-gulp.task('build', function(){
+gulp.task('build', function(done){
 
-    return browserify({entries: './app/src/js/app.js', debug: true})
-        .transform("babelify", { presets: ["es2015"] })
-        .bundle()
-        .pipe(source('app.js'))
-        .pipe(gulp.dest('./app/dist/js'));
+    var files = [
+        './app/src/js/app.js',
+        './app/src/js/login.js'
+    ];
+
+    var tasks = files.map(function(entry){
+
+        return browserify({entries: entry, debug: true})
+            .transform("babelify", { presets: ["es2015"] })
+            .bundle()
+            .pipe(source(entry))
+            .pipe(renaame({extname: '.bundle.js'}))
+            .pipe(gulp.dest('./'));
+
+    })
+    return es.merge.apply(null, tasks);
 
 });
 
