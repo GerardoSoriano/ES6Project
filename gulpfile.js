@@ -1,11 +1,19 @@
 var gulp        = require('gulp');
 var rename      = require('gulp-rename');
+var sass        = require('gulp-sass');
+var browserSync = require('browser-sync').create();
 var browserify  = require('browserify');
 var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var es          = require('event-stream');
 
-gulp.task('build', function(done){
+gulp.task('sass', function(){
+    return gulp.src('./app/src/scss/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('./app/dist/css'));
+});
+
+gulp.task('js', function(){
     var files = [
         'app.js',
         'login.js'
@@ -20,9 +28,10 @@ gulp.task('build', function(done){
     })
     return es.merge.apply(null, tasks);
 });
-
-gulp.task('watch', ['build'], function(){
-    gulp.watch('./app/src/js/*.js', ['build']);
+    
+gulp.task('watch', ['js','sass'], function(){
+    gulp.watch('./app/src/js/*.js', ['js']);
+    gulp.watch('./app/src/scss/*.scss', ['sass'])
 });
 
-gulp.task('default', ['build','watch']);
+gulp.task('default', ['js','sass','watch']);
